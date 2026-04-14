@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aurora Start</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="backdrop">
+      <div class="orb orb-left"></div>
+      <div class="orb orb-right"></div>
+      <div class="mesh"></div>
+    </div>
+
+    <main class="page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Start page extension</p>
+          <h1>Aurora Start</h1>
+        </div>
+        <div class="status-pill" id="weekdayLabel">Сегодня</div>
+      </header>
+
+      <section class="hero card">
+        <div class="hero-copy">
+          <p class="eyebrow">Новая вкладка</p>
+          <h2 id="greeting">Добро пожаловать</h2>
+          <p class="hero-text">
+            Спокойный старт для дня: поиск, быстрые переходы и место для короткой заметки.
+          </p>
+        </div>
+        <div class="clock-panel">
+          <p class="clock" id="clock">00:00</p>
+          <p class="date" id="dateLabel">Понедельник, 1 января</p>
+        </div>
+      </section>
+
+      <section class="search card">
+        <div class="section-heading">
+          <h3>Поиск</h3>
+          <p>Можно вводить запрос или сразу адрес сайта.</p>
+        </div>
+
+        <form id="searchForm" class="search-form">
+          <label class="sr-only" for="searchInput">Поиск или адрес</label>
+          <input
+            id="searchInput"
+            name="q"
+            type="text"
+            autocomplete="off"
+            placeholder="Например: дизайн стартовой страницы или github.com"
+          />
+          <button type="submit">Открыть</button>
+        </form>
+
+        <div class="engine-row" id="engineRow" aria-label="Поисковая система">
+          <button class="engine-chip is-active" data-engine="google" type="button">Google</button>
+          <button class="engine-chip" data-engine="duck" type="button">DuckDuckGo</button>
+          <button class="engine-chip" data-engine="youtube" type="button">YouTube</button>
+          <button class="engine-chip" data-engine="github" type="button">GitHub</button>
+        </div>
+      </section>
+
+      <section class="dashboard">
+        <div class="links card">
+          <div class="section-heading">
+            <h3>Быстрые ссылки</h3>
+            <p>Базовые сервисы плюс свои кастомные карточки.</p>
+          </div>
+
+          <div class="links-grid" id="linksGrid"></div>
+
+          <form id="linkForm" class="link-form">
+            <input id="linkTitle" type="text" maxlength="28" placeholder="Название" required />
+            <input id="linkUrl" type="text" placeholder="example.com или https://example.com" required />
+            <button type="submit">Добавить</button>
+          </form>
+        </div>
+
+        <div class="notes card">
+          <div class="section-heading">
+            <h3>Фокус дня</h3>
+            <p>Короткая заметка хранится локально в браузере.</p>
+          </div>
+
+          <label class="sr-only" for="focusNote">Заметка</label>
+          <textarea
+            id="focusNote"
+            placeholder="Что важно не забыть сегодня?"
+            rows="10"
+          ></textarea>
+        </div>
+      </section>
+    </main>
+
+    <template id="linkCardTemplate">
+      <article class="link-card">
+        <a class="link-anchor" target="_self" rel="noreferrer"></a>
+        <button class="remove-link" type="button" aria-label="Удалить ссылку">×</button>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>

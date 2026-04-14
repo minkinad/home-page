@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Aurora Start",
+  "version": "1.0.0",
+  "description": "Beautiful custom new tab page with search, shortcuts, and notes.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}
