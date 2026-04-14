@@ -2,8 +2,17 @@
   "manifest_version": 3,
   "name": "Aurora Start",
   "version": "1.0.0",
-  "description": "Beautiful custom new tab page with search, shortcuts, and notes.",
+  "description": "Minimal new tab page with regional time and the latest headlines.",
   "chrome_url_overrides": {
     "newtab": "newtab.html"
-  }
+  },
+  "host_permissions": [
+    "https://rssexport.rbc.ru/*",
+    "https://api.open-meteo.com/*",
+    "https://gothamist.com/*",
+    "https://www.mylondon.news/*",
+    "https://www.standard.co.uk/*",
+    "https://www.japantimes.co.jp/*",
+    "https://feeds.leparisien.fr/*"
+  ]
 }

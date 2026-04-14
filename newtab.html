@@ -7,97 +7,99 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="backdrop">
-      <div class="orb orb-left"></div>
-      <div class="orb orb-right"></div>
-      <div class="mesh"></div>
+    <div class="top-controls">
+      <div class="top-region">
+        <label class="region-label sr-only" for="regionSelect">Регион</label>
+        <select id="regionSelect" class="region-select" aria-label="Выбор региона"></select>
+      </div>
+      <div class="top-spacer" aria-hidden="true"></div>
+      <button
+        id="themeToggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Переключить тему"
+        aria-pressed="false"
+      >
+        <span class="theme-toggle-mark" aria-hidden="true"></span>
+      </button>
     </div>
+    <div id="themeWave" class="theme-wave" aria-hidden="true"></div>
 
     <main class="page">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Start page extension</p>
-          <h1>Aurora Start</h1>
+      <section class="clock-section">
+        <h1 id="clock" class="clock">00:00</h1>
+        <div class="clock-meta">
+          <p id="dateLabel" class="date-label">Понедельник, 1 января</p>
+          <p id="weatherLabel" class="weather-label"></p>
         </div>
-        <div class="status-pill" id="weekdayLabel">Сегодня</div>
-      </header>
-
-      <section class="hero card">
-        <div class="hero-copy">
-          <p class="eyebrow">Новая вкладка</p>
-          <h2 id="greeting">Добро пожаловать</h2>
-          <p class="hero-text">
-            Спокойный старт для дня: поиск, быстрые переходы и место для короткой заметки.
-          </p>
-        </div>
-        <div class="clock-panel">
-          <p class="clock" id="clock">00:00</p>
-          <p class="date" id="dateLabel">Понедельник, 1 января</p>
-        </div>
+        <p id="greetingLabel" class="greeting-label"></p>
       </section>
 
-      <section class="search card">
-        <div class="section-heading">
-          <h3>Поиск</h3>
-          <p>Можно вводить запрос или сразу адрес сайта.</p>
-        </div>
-
-        <form id="searchForm" class="search-form">
-          <label class="sr-only" for="searchInput">Поиск или адрес</label>
-          <input
-            id="searchInput"
-            name="q"
-            type="text"
-            autocomplete="off"
-            placeholder="Например: дизайн стартовой страницы или github.com"
-          />
-          <button type="submit">Открыть</button>
-        </form>
-
-        <div class="engine-row" id="engineRow" aria-label="Поисковая система">
-          <button class="engine-chip is-active" data-engine="google" type="button">Google</button>
-          <button class="engine-chip" data-engine="duck" type="button">DuckDuckGo</button>
-          <button class="engine-chip" data-engine="youtube" type="button">YouTube</button>
-          <button class="engine-chip" data-engine="github" type="button">GitHub</button>
-        </div>
+      <section class="links-section">
+        <div id="linksList" class="links-grid" aria-live="polite"></div>
       </section>
 
-      <section class="dashboard">
-        <div class="links card">
-          <div class="section-heading">
-            <h3>Быстрые ссылки</h3>
-            <p>Базовые сервисы плюс свои кастомные карточки.</p>
+      <section class="news-section">
+        <div class="section-top">
+          <div>
+            <p id="newsKicker" class="kicker">Последние новости</p>
           </div>
-
-          <div class="links-grid" id="linksGrid"></div>
-
-          <form id="linkForm" class="link-form">
-            <input id="linkTitle" type="text" maxlength="28" placeholder="Название" required />
-            <input id="linkUrl" type="text" placeholder="example.com или https://example.com" required />
-            <button type="submit">Добавить</button>
-          </form>
         </div>
-
-        <div class="notes card">
-          <div class="section-heading">
-            <h3>Фокус дня</h3>
-            <p>Короткая заметка хранится локально в браузере.</p>
-          </div>
-
-          <label class="sr-only" for="focusNote">Заметка</label>
-          <textarea
-            id="focusNote"
-            placeholder="Что важно не забыть сегодня?"
-            rows="10"
-          ></textarea>
-        </div>
+        <div id="newsList" class="news-list"></div>
       </section>
     </main>
 
-    <template id="linkCardTemplate">
+    <div id="linkSheetBackdrop" class="sheet-backdrop" hidden></div>
+    <section id="linkSheet" class="link-sheet" hidden aria-hidden="true">
+      <div class="link-sheet-card">
+        <button id="closeLinkSheet" class="sheet-close" type="button" aria-label="Закрыть">×</button>
+        <p id="linkSheetKicker" class="kicker">Быстрая ссылка</p>
+        <h2 id="linkSheetTitle" class="sheet-title">Новая ссылка</h2>
+
+        <form id="linkForm" class="sheet-form">
+          <input
+            id="linkTitle"
+            class="text-input"
+            type="text"
+            maxlength="30"
+            placeholder="Название"
+            required
+          />
+          <input
+            id="linkUrl"
+            class="text-input"
+            type="text"
+            placeholder="example.com или https://example.com"
+            required
+          />
+          <div class="sheet-actions">
+            <button id="cancelEditButton" class="ghost-button" type="button">Отмена</button>
+            <button id="saveLinkButton" class="refresh-button" type="submit">Добавить</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <template id="newsItemTemplate">
+      <article class="news-item">
+        <a class="news-link" target="_self" rel="noreferrer"></a>
+        <div class="news-footer">
+          <span class="news-source"></span>
+          <time class="news-time"></time>
+        </div>
+      </article>
+    </template>
+
+    <template id="linkItemTemplate">
       <article class="link-card">
-        <a class="link-anchor" target="_self" rel="noreferrer"></a>
-        <button class="remove-link" type="button" aria-label="Удалить ссылку">×</button>
+        <a class="link-card-main" target="_self" rel="noreferrer">
+          <span class="link-card-title"></span>
+          <span class="link-card-url"></span>
+        </a>
+        <div class="link-card-actions">
+          <button class="link-action" data-action="edit" type="button"></button>
+          <button class="link-action link-action-danger" data-action="delete" type="button"></button>
+        </div>
       </article>
     </template>
 
